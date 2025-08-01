@@ -66,3 +66,34 @@ TODO:
 - Benchmarking folder: Add timing and performance comparisons.
 - Visualizations (optional)
 
+## How to Run
+
+```shell
+# ----- cpp
+# Build everything (default)
+cmake -B build
+cmake --build build
+
+# Only build C++ benchmarks
+cmake -DENABLE_C_BENCHMARKS=OFF -DENABLE_CPP_BENCHMARKS=ON -B build
+cmake --build build
+
+# Disable all benchmarks
+cmake -DENABLE_C_BENCHMARKS=OFF -DENABLE_CPP_BENCHMARKS=OFF -B build
+cmake --build build
+
+# Run tests
+./build/tests/cpp/run_tests
+
+# ----- c
+# Build everything (default)
+cmake -B build
+cmake --build build
+
+# disable benchmarks
+cmake -DENABLE_C_BENCHMARKS=OFF -B build
+cmake --build build
+
+# Run tests
+./build/tests/c/run_c_tests
+```
