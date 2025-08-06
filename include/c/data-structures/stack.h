@@ -4,29 +4,26 @@
 #include <stddef.h> // for size_t
 
 // Tag for type-safe variant values
-typedef enum
-{
+typedef enum {
   TYPE_CHAR,
   TYPE_INT,
-  TYPE_FUNC_PTR
+  TYPE_INT_FUNC_PTR,
+  TYPE_FLOAT_FUNC_PTR
 } TypeTag;
 
 typedef void (*FuncPtr)();
 
 // Variant allows storing different types
-typedef struct
-{
+typedef struct {
   TypeTag type;
-  union
-  {
+  union {
     char c;
     int i;
     FuncPtr f;
   } data;
 } Variant;
 
-struct stack
-{
+struct stack {
   void *data;
   int size;
   int capacity;
