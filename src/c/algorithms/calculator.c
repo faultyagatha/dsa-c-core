@@ -1,7 +1,10 @@
+#include "algorithms/calculator.h"
 #include "data-structures/stack.h"
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * Implement a simple calculator which can
@@ -18,17 +21,13 @@
  * - add more operators
  */
 
-#define ERR_STACK_UNDERFLOW -1
-#define ERR_INVALID_FUNC -2
-#define ERR_INVALID_CHAR -3
-#define ERR_STACK_LEFTOVER -4
-
 // Function signature for +, -
 typedef int (*IntBinOp)(int, int);
 
-int add(int a, int b) { return a + b; }
+// Make static for internal linkage
+static int add(int a, int b) { return a + b; }
 
-int sub(int a, int b) { return a - b; }
+static int sub(int a, int b) { return a - b; }
 
 int calculator(const char *expr) {
   struct stack s;
@@ -53,7 +52,7 @@ int calculator(const char *expr) {
       Variant fn;
       Variant arg2;
 
-      if (pop(&s, &arg1) != 0 || pop(&s, &fn) != 0 || pop(&s, &arg2 != 0)) {
+      if (pop(&s, &arg1) != 0 || pop(&s, &fn) != 0 || pop(&s, &arg2) != 0) {
         fprintf(stderr, "Stack underflow during evaluation.\n");
         freeStack(&s);
         // Idiomatic failure signal
@@ -100,5 +99,3 @@ int calculator(const char *expr) {
 
   return out.data.c - '0';
 }
-
-int main() { return 0; }

@@ -1,5 +1,5 @@
-#ifndef DSA_C_DATA_STRUCTURES_STACK_H
-#define DSA_C_DATA_STRUCTURES_STACK_H
+#ifndef STACK_H
+#define STACK_H
 
 #include <stddef.h> // for size_t
 
@@ -38,4 +38,4 @@ int pop(struct stack *s, void *out);
 int peek(struct stack *s, void *out);
 int isEmpty(struct stack *s);
 
-#endif // DSA_C_DATA_STRUCTURES_STACK_H
+#endif // STACK_H

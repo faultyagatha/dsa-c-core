@@ -1,5 +1,5 @@
-#ifndef DSA_C_DATA_STRUCTURES_LIST_H
-#define DSA_C_DATA_STRUCTURES_LIST_H
+#ifndef LIST_H
+#define LIST_H
 
 struct node {
   char *data;
@@ -20,4 +20,4 @@ int find(struct list *l, char *str);
 void print(struct list *l);
 void destroy(struct list *l);
 
-#endif // DSA_C_DATA_STRUCTURES_LIST_H
+#endif // LIST_H
