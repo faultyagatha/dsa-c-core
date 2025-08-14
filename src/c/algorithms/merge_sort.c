@@ -2,20 +2,73 @@
 
 #include <stdlib.h>
 
-int *merge_sort(int *arr) {
-  // Check this, what if the arr is []!
-  size_t len = sizeof(arr) / sizeof(arr[0]);
+int *merge_sort(int *arr, size_t len) {
   if (len <= 1) {
+    // Already sorted
     return arr;
   }
   // Divide into left and right
   size_t mid = len / 2;
-  int *left;
-  int *right;
 
-  // Call merge_sort recursively on each side until 1 elem left
-  // Call merge on each recursive call of merge_sort
+  // Allocate and copy left half
+  int *left = malloc(mid * sizeof(int));
+  if (!left)
+    exit(EXIT_FAILURE);
+  left = memcpy(left, arr, mid * sizeof(int));
+
+  // Allocate and copy right half
+  int *right = malloc((len - mid) * sizeof(int));
+  if (!right)
+    exit(EXIT_FAILURE);
+  right = memcpy(right, arr, (len - mid) * sizeof(int));
+
+  // Recursively sort halves
+  merge_sort(left, mid);
+  merge_sort(right, len - mid);
+
+  // Merge directly into arr
+  merge(arr, left, mid, right, len - mid);
+
+  free(left);
+  free(right);
+
   return arr;
 }
 
-int *merge(int *left, int *right) { return left; }
+int *merge(int *arr, int *left, size_t left_len, int *right, size_t right_len) {
+  size_t i = 0;
+  size_t j = 0;
+  size_t k = 0;
+
+  while (i < left_len && j < right_len) {
+    if (left[i] < right[j]) {
+      arr[k] = left[i];
+      i++;
+      k++;
+    } else if (left[i] > right[j]) {
+      arr[k] = right[j];
+      j++;
+      k++;
+    } else {
+      // Found duplicate --> add both
+      arr[k] = left[i];
+      i++;
+      k++;
+      arr[k] = right[j];
+      j++;
+      k++;
+    }
+  }
+
+  // Copy the rest
+  while (i < left_len) {
+    arr[k] = left[i];
+    i++;
+    k++;
+  }
+  while (j < right_len) {
+    arr[k] = right[j];
+    j++;
+    k++;
+  }
+}
