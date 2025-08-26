@@ -22,7 +22,7 @@ int *merge_sort(int *arr, size_t len) {
     exit(EXIT_FAILURE);
   right = memcpy(right, arr, (len - mid) * sizeof(int));
 
-  // Recursively sort halves
+  // Recursively divide halves
   merge_sort(left, mid);
   merge_sort(right, len - mid);
 

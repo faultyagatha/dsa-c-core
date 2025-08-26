@@ -2,4 +2,6 @@
 #pragma once
 #include <vector>
 
-void mergeSort(std::vector<int>& data);
+std::vector<int> mergeSort(const std::vector<int> &data);
+std::vector<int> merge(const std::vector<int> &left,
+                       const std::vector<int> &right);
