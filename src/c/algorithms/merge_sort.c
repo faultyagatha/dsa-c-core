@@ -1,41 +1,10 @@
 #include "algorithms/merge_sort.h"
 
 #include <stdlib.h>
+#include <string.h> // for memcpy
 
-int *merge_sort(int *arr, size_t len) {
-  if (len <= 1) {
-    // Already sorted
-    return arr;
-  }
-  // Divide into left and right
-  size_t mid = len / 2;
-
-  // Allocate and copy left half
-  int *left = malloc(mid * sizeof(int));
-  if (!left)
-    exit(EXIT_FAILURE);
-  left = memcpy(left, arr, mid * sizeof(int));
-
-  // Allocate and copy right half
-  int *right = malloc((len - mid) * sizeof(int));
-  if (!right)
-    exit(EXIT_FAILURE);
-  right = memcpy(right, arr, (len - mid) * sizeof(int));
-
-  // Recursively divide halves
-  merge_sort(left, mid);
-  merge_sort(right, len - mid);
-
-  // Merge directly into arr
-  merge(arr, left, mid, right, len - mid);
-
-  free(left);
-  free(right);
-
-  return arr;
-}
-
-int *merge(int *arr, int *left, size_t left_len, int *right, size_t right_len) {
+static void merge(int *arr, int *left, size_t left_len, int *right,
+                  size_t right_len) {
   size_t i = 0;
   size_t j = 0;
   size_t k = 0;
@@ -71,4 +40,37 @@ int *merge(int *arr, int *left, size_t left_len, int *right, size_t right_len) {
     j++;
     k++;
   }
+}
+
+int *merge_sort(int *arr, size_t len) {
+  if (len <= 1) {
+    // Already sorted
+    return arr;
+  }
+  // Divide into left and right
+  size_t mid = len / 2;
+
+  // Allocate and copy left half
+  int *left = malloc(mid * sizeof(int));
+  if (!left)
+    exit(EXIT_FAILURE);
+  memcpy(left, arr, mid * sizeof(int));
+
+  // Allocate and copy right half
+  int *right = malloc((len - mid) * sizeof(int));
+  if (!right)
+    exit(EXIT_FAILURE);
+  memcpy(right, arr + mid, (len - mid) * sizeof(int));
+
+  // Recursively divide halves
+  merge_sort(left, mid);
+  merge_sort(right, len - mid);
+
+  // Merge directly into arr
+  merge(arr, left, mid, right, len - mid);
+
+  free(left);
+  free(right);
+
+  return arr;
 }

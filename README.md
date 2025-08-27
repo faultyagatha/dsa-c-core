@@ -95,5 +95,5 @@ cmake -DENABLE_C_BENCHMARKS=OFF -B build
 cmake --build build
 
 # Run tests
-./build/tests/c/run_c_tests
+./build/tests/c/[test_name]
 ```
