@@ -1,8 +1,13 @@
 // merge_sort.cpp
-#include "algorithms/merge_sort.hpp"
+#include "algorithms/merge_sort_buffer.hpp"
 
-std::vector<int> merge(const std::vector<int> &left,
-                       const std::vector<int> &right) {
+// Memory-hungry and cache-unfriendly merge sort
+// that uses additional buffers
+// O(n log n) time and space
+// Anonymous namespace = internal linkage for everything inside
+namespace {
+static std::vector<int> merge(const std::vector<int> &left,
+                              const std::vector<int> &right) {
   std::vector<int> res;
   size_t lenLeft = left.size();
   size_t lenRight = right.size();
@@ -38,8 +43,9 @@ std::vector<int> merge(const std::vector<int> &left,
 
   return res;
 }
+} // namespace
 
-std::vector<int> mergeSort(std::vector<int> &data) {
+std::vector<int> mergeSortBuffer(const std::vector<int> &data) {
   size_t len = data.size();
   // Base case
   if (len <= 1) {
@@ -50,12 +56,12 @@ std::vector<int> mergeSort(std::vector<int> &data) {
   // Prepare a left-side vector
   std::vector<int> l(data.begin(), data.begin() + mid);
   // Recursively divide until based case is true
-  std::vector<int> left = mergeSort(l);
+  std::vector<int> left = mergeSortBuffer(l);
 
   // Prepare a right-side vector
   std::vector<int> r(data.begin() + mid, data.end());
   // Recursively divide until based case is true
-  std::vector<int> right = mergeSort(r);
+  std::vector<int> right = mergeSortBuffer(r);
 
   // Recursively merge
   return merge(left, right);
