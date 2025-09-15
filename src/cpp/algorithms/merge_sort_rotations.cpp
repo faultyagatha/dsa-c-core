@@ -10,6 +10,7 @@ void mergeSortRotations(std::vector<int> &data, size_t low, size_t high) {
   mergeSortRotations(data, mid, high);
   std::inplace_merge(data.begin() + low, data.begin() + mid,
                      data.begin() + high);
+  // merge(data, low, mid, high);
 }
 
 // Merge two adjacent sorted subarrays inside a single vector

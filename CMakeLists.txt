@@ -16,6 +16,18 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/include/c
 )
 
+# GoogleTest
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+# Prevent GoogleTest from forcing its own tests
+set(BUILD_GTEST ON)
+set(BUILD_GMOCK OFF)
+FetchContent_MakeAvailable(googletest)
+
+
 # C++ source trees (each has its own CMakeLists.txt)
 add_subdirectory(src/cpp/algorithms)
 add_subdirectory(src/cpp/data-structures)
@@ -34,5 +46,6 @@ endif()
 if(ENABLE_CPP_BENCHMARKS)
     add_subdirectory(benchmarks/cpp)
 endif()
+
 
 

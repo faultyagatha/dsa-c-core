@@ -8,11 +8,12 @@ file(GLOB_RECURSE TEST_SOURCES
 # Create the test executable
 add_executable(run_tests ${TEST_SOURCES})
 
-# Link with your core libraries
+# Link with the core libraries
 target_link_libraries(run_tests
     PRIVATE
         data_structures
         algorithms
+        GTest::gtest_main
 )
 
 # Add include paths if needed (e.g., for test helpers or headers)
@@ -21,6 +22,7 @@ target_include_directories(run_tests
         ${PROJECT_SOURCE_DIR}/include/cpp
 )
 
-# Optional: add to CTest to use it later
-enable_testing()
-add_test(NAME AllTests COMMAND run_tests)
+# Register with CTest
+include(GoogleTest)
+gtest_discover_tests(run_tests)
+
