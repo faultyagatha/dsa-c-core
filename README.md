@@ -82,8 +82,14 @@ cmake --build build
 cmake -DENABLE_C_BENCHMARKS=OFF -DENABLE_CPP_BENCHMARKS=OFF -B build
 cmake --build build
 
+# Run benchmarks
+./build/benchmarks/cpp/[benchmark_name]
+
 # Run tests
 ./build/tests/cpp/run_tests
+# or with google tests
+cd build
+ctest --output-on-failure
 
 # ----- c
 # Build everything (default)
