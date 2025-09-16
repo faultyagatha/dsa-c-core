@@ -16,6 +16,10 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/include/c
 )
 
+# Enable CTest at the top level so ctest can discover tests
+include(CTest)
+enable_testing()
+
 # GoogleTest
 include(FetchContent)
 FetchContent_Declare(

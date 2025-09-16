@@ -5,6 +5,8 @@ file(GLOB_RECURSE TEST_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 )
 
+enable_testing()
+
 # Create the test executable
 add_executable(run_tests ${TEST_SOURCES})
 
